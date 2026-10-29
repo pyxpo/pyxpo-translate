@@ -1,5 +1,7 @@
 # pyxpo-translate
 
+[![CI](https://github.com/pyxpo/pyxpo-translate/actions/workflows/ci.yml/badge.svg)](https://github.com/pyxpo/pyxpo-translate/actions/workflows/ci.yml) [![License: MIT](https://img.shields.io/badge/license-MIT-blue)](LICENSE)
+
 Offline text translation for [pyxpo](https://github.com/pyxpo/pyxpo) apps, written in Python. It runs Google ML
 Kit's on-device translation models on Android: the app downloads a language model once (about 30 MB) when the user
 agrees, and from then on every translation runs on the phone, with no network, account or API key. About 60
