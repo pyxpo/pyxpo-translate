@@ -90,7 +90,10 @@ from pyxpo import Pressable, Text, TextInput, View, component, use_async, use_st
 
 @component
 def HindiToEnglish():
-    ready = use_async(lambda: Translate.is_ready_async("hi", "en"), [])
+    async def check():
+        return await Translate.is_ready_async("hi", "en")
+
+    ready = use_async(check, [])
     downloaded, set_downloaded = use_state(False)
     text, set_text = use_state("")
     english, set_english = use_state("")
@@ -293,7 +296,7 @@ def test_downloads_once_then_translates(monkeypatch):
 | `NotSupportedError` on iOS or in the browser | There is no translator there yet. Check `status_async()["supported"]`. |
 | `ModuleNotLinkedError` | The build does not include the module. Add it to `[tool.pyxpo] modules` and rebuild. |
 | The Android build hangs downloading ML Kit | Gradle cannot reach `dl.google.com`. Check the network; if IPv4 to Google is blocked, `JAVA_TOOL_OPTIONS=-Djava.net.preferIPv6Addresses=true` can help. |
-| `RuntimeWarning: coroutine ... was never awaited` | The check was started with `use_effect(lambda: coro())`. Use `use_async(lambda: Translate.is_ready_async("hi"), [])`. |
+| `RuntimeWarning: coroutine ... was never awaited` | The check was started with `use_effect(lambda: coro())`. Pass `use_async` an `async def` that awaits `Translate.is_ready_async("hi")`. |
 
 ## FAQ
 
